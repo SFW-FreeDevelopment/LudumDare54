@@ -9,7 +9,6 @@ namespace UI
 
         protected override void OnClick()
         {
-            _test.Speak();
             SceneManager.LoadScene(_sceneName);
         }
     }
