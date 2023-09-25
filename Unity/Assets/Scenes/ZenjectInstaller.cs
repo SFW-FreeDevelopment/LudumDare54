@@ -1,3 +1,4 @@
+using UniMediator;
 using UnityEngine;
 using Zenject;
 
@@ -5,7 +6,14 @@ public class ZenjectInstaller : MonoInstaller
 {
     public override void InstallBindings()
     {
-        Container.Bind<ITest>().To<Test>().AsSingle().NonLazy();
+        Container.Bind<IMediator>()
+            .To<MediatorImpl>()
+            .FromComponentInHierarchy()
+            .AsSingle();
+        Container.Bind<ITest>()
+            .To<Test>()
+            .AsSingle()
+            .NonLazy();
     }
 }
 

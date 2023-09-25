@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using Requests;
+using UnityEngine;
 using UnityEngine.SceneManagement;
 
 namespace UI
@@ -9,6 +10,7 @@ namespace UI
 
         protected override void OnClick()
         {
+            _mediator.Publish(new TestCommand("It worked! Eureka!"));
             SceneManager.LoadScene(_sceneName);
         }
     }
