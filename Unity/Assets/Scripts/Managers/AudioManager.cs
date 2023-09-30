@@ -33,6 +33,7 @@ namespace LD54.Managers
             if (_audioClipDictionary.TryGetValue(clipName.ToLower(), out var clip))
             {
                 var spawnedObj = Instantiate(_audioObjectPrefab);
+                spawnedObj.name = $"Audio Object ({clipName})";
                 var audioSource = spawnedObj.GetComponent<AudioSource>();
                 audioSource.clip = clip;
                 try
