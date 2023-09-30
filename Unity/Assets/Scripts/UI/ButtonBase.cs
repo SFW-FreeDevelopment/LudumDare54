@@ -1,23 +1,23 @@
-using UniMediator;
 using UnityEngine;
 using UnityEngine.UI;
-using Zenject;
 
-[RequireComponent(typeof(Button))]
-public abstract class ButtonBase : MonoBehaviour
+namespace LD54.UI
 {
-    protected Button _button;
-    [Inject] protected IMediator _mediator;
-
-    protected void Awake()
+    [RequireComponent(typeof(Button))]
+    public abstract class ButtonBase : MonoBehaviour
     {
-        _button = GetComponent<Button>();
-    }
+        protected Button _button;
+        
+        protected void Awake()
+        {
+            _button = GetComponent<Button>();
+        }
 
-    protected void Start()
-    {
-        _button.onClick.AddListener(OnClick);
-    }
+        protected void Start()
+        {
+            _button.onClick.AddListener(OnClick);
+        }
 
-    protected abstract void OnClick();
+        protected abstract void OnClick();
+    }
 }
