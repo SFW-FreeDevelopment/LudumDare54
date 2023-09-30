@@ -3,6 +3,12 @@
     public enum SoundName
     {
         Click,
-        Exit
+        Exit,
+        SubCreak1,
+        SubCreak2,
+        SubCreak3,
+        SubCreak4,
+        SubCreak5,
+        SubCreak6
     }
 }
