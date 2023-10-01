@@ -9,6 +9,9 @@
         SubCreak3,
         SubCreak4,
         SubCreak5,
-        SubCreak6
+        SubCreak6,
+        GrowlLow,
+        GrowlHigh,
+        Alarm
     }
 }

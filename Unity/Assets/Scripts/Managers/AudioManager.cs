@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using LD54.Abstractions;
+using LD54.Behaviors;
 using LD54.Requests;
 using UniMediator;
 using UnityEngine;
@@ -28,7 +29,7 @@ namespace LD54.Managers
             }
         }
 
-        public void Play(string clipName)
+        public void Play(string clipName, bool loop = false)
         {
             if (_audioClipDictionary.TryGetValue(clipName.ToLower(), out var clip))
             {
@@ -36,6 +37,11 @@ namespace LD54.Managers
                 spawnedObj.name = $"Audio Object ({clipName})";
                 var audioSource = spawnedObj.GetComponent<AudioSource>();
                 audioSource.clip = clip;
+                audioSource.loop = loop;
+                if (loop)
+                {
+                    Destroy(spawnedObj.GetComponent<DestroyAfterTime>());
+                }
                 try
                 {
                     audioSource.volume = SettingsManager.Instance.Settings.SfxVolume;
@@ -48,6 +54,6 @@ namespace LD54.Managers
             }
         }
 
-        public void Handle(PlayAudioCommand request) => Play(request.SoundName.ToString());
+        public void Handle(PlayAudioCommand request) => Play(request.SoundName.ToString(), request.Loop);
     }
 }

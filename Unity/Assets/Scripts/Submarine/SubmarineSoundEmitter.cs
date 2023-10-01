@@ -10,10 +10,11 @@ namespace LD54.Submarine
     public class SubmarineSoundEmitter : MonoBehaviour
     {
         [Inject] private IMediator _mediator;
-        [SerializeField] private float _interval = 10;
+        [SerializeField] private float _intervalMinimum = 5;
+        [SerializeField] private float _intervalMaximum = 10;
         
         private void Start() =>
-            StartCoroutine(CoroutineTemplate.DelayAndFireLoopRoutine(_interval, () =>
+            StartCoroutine(CoroutineTemplate.RandomDelayAndFireLoopRoutine(_intervalMinimum, _intervalMaximum, () =>
             {
                 _mediator.Publish(new PlayAudioCommand(Random.Range(1, 7) switch
                 {
