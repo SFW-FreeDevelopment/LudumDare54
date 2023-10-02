@@ -1,5 +1,6 @@
 ﻿using System;
 using LD54.Abstractions;
+using LD54.Enums;
 using LD54.Models;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -43,6 +44,7 @@ namespace LD54.Managers
         private void OnFileCreated()
         {
             GameState.FilesCreated++;
+            AudioManager.Instance.Play(SoundName.Click);
             if (GameState.CurrentFiles > MAX_NUMBER_OF_FILES)
             {
                 GameState.GameOver = true;
@@ -54,6 +56,7 @@ namespace LD54.Managers
         private void OnFileDeleted()
         {
             GameState.FilesDeleted++;
+            AudioManager.Instance.Play(SoundName.Delete);
             EventManager.RefreshUI();
         }
 

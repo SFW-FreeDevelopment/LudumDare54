@@ -1,4 +1,5 @@
 ﻿using LD54.Abstractions;
+using LD54.Enums;
 using UnityEngine;
 
 namespace LD54.Managers
@@ -26,6 +27,7 @@ namespace LD54.Managers
 
         private void OnGameOver()
         {
+            AudioManager.Instance.Play(SoundName.BSOD);
             _blueScreenOfDeath.SetActive(true);
         }
 

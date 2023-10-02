@@ -2,6 +2,7 @@
 using System.Linq;
 using LD54.Abstractions;
 using LD54.Behaviors;
+using LD54.Enums;
 using LD54.Requests;
 using UniMediator;
 using UnityEngine;
@@ -28,6 +29,8 @@ namespace LD54.Managers
                 }
             }
         }
+
+        public void Play(SoundName soundName) => Play(soundName.ToString());
 
         public void Play(string clipName, bool loop = false)
         {

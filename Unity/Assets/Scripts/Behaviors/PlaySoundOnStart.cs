@@ -1,6 +1,6 @@
 ﻿using LD54.Abstractions;
 using LD54.Enums;
-using LD54.Requests;
+using LD54.Managers;
 using UniMediator;
 using UnityEngine;
 using Zenject;
@@ -13,7 +13,6 @@ namespace LD54.Behaviors
         [SerializeField] private SoundName _soundName;
         [SerializeField] private bool _loop;
 
-        private void Start() => StartCoroutine(CoroutineTemplate.DelayAndFireRoutine(0.1f, () =>
-            _mediator.Publish(new PlayAudioCommand(_soundName, _loop))));
+        private void Start() => StartCoroutine(CoroutineTemplate.DelayAndFireRoutine(0.1f, () => AudioManager.Instance.Play(_soundName)));
     }
 }
