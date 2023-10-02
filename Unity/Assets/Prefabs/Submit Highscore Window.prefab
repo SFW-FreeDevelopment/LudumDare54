@@ -440,6 +440,7 @@ GameObject:
   - component: {fileID: 4498995647550698700}
   - component: {fileID: 3027265505236123301}
   - component: {fileID: 8671775688292302793}
+  - component: {fileID: 1920894517477585182}
   m_Layer: 5
   m_Name: Button_1
   m_TagString: Untagged
@@ -580,6 +581,19 @@ MonoBehaviour:
   m_EffectColor: {r: 0.8784314, g: 0.8784314, b: 0.8784314, a: 1}
   m_EffectDistance: {x: 1, y: -1}
   m_UseGraphicAlpha: 1
+--- !u!114 &1920894517477585182
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2050108591683383900}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d12c3073cfc54e908bb4decc31ef6662, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _window: {fileID: 2139914000315756674}
 --- !u!1 &2139914000131481890
 GameObject:
   m_ObjectHideFlags: 0
@@ -729,6 +743,7 @@ GameObject:
   - component: {fileID: 2139914000315756676}
   - component: {fileID: 2139914000315756678}
   - component: {fileID: 2139914000315756679}
+  - component: {fileID: 909084750675843486}
   m_Layer: 5
   m_Name: Submit Highscore Window
   m_TagString: Untagged
@@ -827,6 +842,22 @@ MonoBehaviour:
   m_EffectColor: {r: 0.92156863, g: 0.92156863, b: 0.92156863, a: 1}
   m_EffectDistance: {x: 1, y: -1}
   m_UseGraphicAlpha: 1
+--- !u!114 &909084750675843486
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2139914000315756674}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d56b6f456be04196ac2c3e721cf89013, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _okButton: {fileID: 4166041585894012341}
+  _nameInput: {fileID: 3515929053625320553}
+  _filesDeletedText: {fileID: 5143480253765576729}
+  _timeElapsedText: {fileID: 3318855339469935877}
 --- !u!1 &2139914000421311853
 GameObject:
   m_ObjectHideFlags: 0
@@ -1515,8 +1546,8 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4281479730
-  m_fontColor: {r: 0.19607843, g: 0.19607843, b: 0.19607843, a: 1}
+    rgba: 4278190080
+  m_fontColor: {r: 0, g: 0, b: 0, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -1785,8 +1816,8 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4281479730
-  m_fontColor: {r: 0.19607843, g: 0.19607843, b: 0.19607843, a: 1}
+    rgba: 4278190080
+  m_fontColor: {r: 0, g: 0, b: 0, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:

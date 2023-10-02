@@ -12,7 +12,7 @@ namespace LD54.Managers
         
         public GameState GameState { get; private set; } = new();
 
-        private void Awake()
+        private void OnEnable()
         {
             EventManager.OnFileCreated += OnFileCreated;
             EventManager.OnFileDeleted += OnFileDeleted;
@@ -23,7 +23,7 @@ namespace LD54.Managers
             ResetMinigame();
         }
 
-        private void OnDestroy()
+        private void OnDisable()
         {
             EventManager.OnFileCreated -= OnFileCreated;
             EventManager.OnFileDeleted -= OnFileDeleted;
@@ -32,9 +32,11 @@ namespace LD54.Managers
         private void Update()
         {
             if (!GameState.GameOver) return;
+            if (GameState.HighscoreWindowOpen) return;
             if (Input.GetKeyDown(KeyCode.Return) || Input.GetKeyDown(KeyCode.Space))
             {
-                SceneManager.LoadScene("Startup");
+                GameState.HighscoreWindowOpen = true;
+                EventManager.RefreshUI();
             }
         }
 
@@ -44,6 +46,7 @@ namespace LD54.Managers
             if (GameState.CurrentFiles > MAX_NUMBER_OF_FILES)
             {
                 GameState.GameOver = true;
+                GameState.TimeEnded = DateTime.UtcNow;
                 EventManager.GameOver();
             }
         }

@@ -13,7 +13,6 @@ namespace LD54.Managers
         public static event Action OnGameOver;
         public static void GameOver() => OnGameOver?.Invoke();
 
-        
         public static event Action OnRefreshUI;
         public static void RefreshUI() => OnRefreshUI?.Invoke();
     }

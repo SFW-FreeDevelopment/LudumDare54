@@ -5,11 +5,12 @@ namespace LD54.Managers
 {
     public class MinigameUIManager : SceneSingleton<MinigameUIManager>
     {
-        [SerializeField] private GameObject _blueScreenOfDeath;
+        [SerializeField] private GameObject _blueScreenOfDeath, _submitHighscoreWindow;
         
-        private void Awake()
+        private void OnEnable()
         {
             EventManager.OnGameOver += OnGameOver;
+            EventManager.OnRefreshUI += OnRefreshUI;
         }
 
         protected override void InitSingletonInstance()
@@ -17,14 +18,22 @@ namespace LD54.Managers
             // do nothing
         }
 
-        private void OnDestroy()
+        private void OnDisable()
         {
             EventManager.OnGameOver -= OnGameOver;
+            EventManager.OnRefreshUI -= OnRefreshUI;
         }
 
         private void OnGameOver()
         {
             _blueScreenOfDeath.SetActive(true);
+        }
+
+        private void OnRefreshUI()
+        {
+            var gameState = MinigameManager.Instance.GameState;
+            if (gameState.HighscoreWindowOpen)
+                _submitHighscoreWindow.SetActive(true);
         }
     }
 }
