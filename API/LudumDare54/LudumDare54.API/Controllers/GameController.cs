@@ -21,7 +21,7 @@ public class HighScoreController : ControllerBase
     [HttpGet]
     [SwaggerResponse(StatusCodes.Status200OK, "All scores, with filters")]
     [SwaggerResponse(StatusCodes.Status400BadRequest, null)]
-    public async Task<IActionResult> Get([FromQuery] string name = null)=>
+    public async Task<IActionResult> Get([FromQuery] string name = null) =>
         Ok(await _mediator.Send(new GetHighScoresQuery(name)));
 
     [HttpPost]
