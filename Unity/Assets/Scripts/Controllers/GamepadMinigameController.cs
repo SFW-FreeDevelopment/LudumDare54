@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Linq;
 using LD54.Enums;
 using LD54.Requests;
@@ -14,8 +15,11 @@ namespace LD54.Controllers
         IMulticastMessageHandler<StartGamepadMinigameCommand>
     {
         [Inject] private IMediator _mediator;
+        [SerializeField] private Canvas _gamepadMinigameCanvas;
+        [SerializeField] private GamepadController _gamepadController;
         private GamepadButton[] _buttonValues, _currentSequence;
         private byte _currentCombo;
+        private bool _showingSequence;
 
         private void Awake()
         {
@@ -34,13 +38,15 @@ namespace LD54.Controllers
         
         public void Handle(PressGamepadButtonCommand message)
         {
-            if (_currentSequence == null || _currentSequence.Length == 0 || _currentCombo == _currentSequence.Length)
+            if (_currentSequence == null || _currentSequence.Length == 0 || _currentCombo == _currentSequence.Length || _showingSequence)
                 return;
 
             if (message.GamepadButton == _currentSequence[_currentCombo])
             {
                 if (++_currentCombo == _currentSequence.Length)
+                {
                     _mediator.Publish(new FinishGamepadSequenceCommand(true));
+                }
             }
             else
             {
@@ -48,9 +54,39 @@ namespace LD54.Controllers
             }
         }
 
-        public void Handle(StartGamepadMinigameCommand message)
+        public void Handle(StartGamepadMinigameCommand message) => StartCoroutine(Routine());
+
+        private IEnumerator Routine()
         {
-            throw new NotImplementedException();
+            _gamepadMinigameCanvas.enabled = true;
+            GenerateSequence(2);
+            _showingSequence = true;
+            for (var i = 0; i < 2; i++)
+            {
+                var currentButton = _currentSequence[i];
+                if (currentButton == GamepadButton.A)
+                    _gamepadController.AButtonOutline.enabled = true;
+                else if (currentButton == GamepadButton.B)
+                    _gamepadController.BButtonOutline.enabled = true;
+                else if (currentButton == GamepadButton.X)
+                    _gamepadController.XButtonOutline.enabled = true;
+                else if (currentButton == GamepadButton.Y)
+                    _gamepadController.YButtonOutline.enabled = true;
+                
+                yield return new WaitForSeconds(0.5f);
+                
+                if (currentButton == GamepadButton.A)
+                    _gamepadController.AButtonOutline.enabled = false;
+                else if (currentButton == GamepadButton.B)
+                    _gamepadController.BButtonOutline.enabled = false;
+                else if (currentButton == GamepadButton.X)
+                    _gamepadController.XButtonOutline.enabled = false;
+                else if (currentButton == GamepadButton.Y)
+                    _gamepadController.YButtonOutline.enabled = false;
+            }
+            _showingSequence = false;
+            
+            
         }
     }
 }

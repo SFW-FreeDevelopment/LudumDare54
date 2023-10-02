@@ -12,7 +12,12 @@ namespace LD54.Controllers
     {
         [Inject] private IMediator _mediator;
         [SerializeField] private Button _aButton, _bButton, _xButton, _yButton;
-
+        [SerializeField] private Outline _abuttonOutline, _bButtonOutline, _xButtonOutline, _yButtonOutline;
+        public Outline AButtonOutline => _abuttonOutline;
+        public Outline BButtonOutline => _bButtonOutline;
+        public Outline XButtonOutline => _xButtonOutline;
+        public Outline YButtonOutline => _yButtonOutline;
+        
         private void Start()
         {
             _aButton.onClick.AddListener(() => PressGamepadButton(GamepadButton.A));
