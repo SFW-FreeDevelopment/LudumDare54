@@ -1,6 +1,8 @@
-﻿using LD54.Abstractions;
+﻿using System;
+using LD54.Abstractions;
 using LD54.Models;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 namespace LD54.Managers
 {
@@ -27,11 +29,21 @@ namespace LD54.Managers
             EventManager.OnFileDeleted -= OnFileDeleted;
         }
 
+        private void Update()
+        {
+            if (!GameState.GameOver) return;
+            if (Input.GetKeyDown(KeyCode.Return) || Input.GetKeyDown(KeyCode.Space))
+            {
+                SceneManager.LoadScene("Minigame");
+            }
+        }
+
         private void OnFileCreated()
         {
             GameState.FilesCreated++;
             if (GameState.CurrentFiles > MAX_NUMBER_OF_FILES)
             {
+                GameState.GameOver = true;
                 EventManager.GameOver();
             }
         }
@@ -44,7 +56,10 @@ namespace LD54.Managers
 
         private void ResetMinigame()
         {
-            GameState = new();
+            GameState = new()
+            {
+                GameOver = false
+            };
         }
     }
 }
