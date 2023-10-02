@@ -1,5 +1,6 @@
 ﻿using System.Text.Json;
-using LudumDare54.API.Requests.Players;
+using LudumDare54.API.Models.DTO;
+using LudumDare54.API.Requests.HighScores;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using Swashbuckle.AspNetCore.Annotations;
@@ -7,7 +8,7 @@ using Swashbuckle.AspNetCore.Annotations;
 namespace LudumDare54.API.Controllers;
 
 [ApiController]
-[Route("game")]
+[Route("scores")]
 public class HighScoreController : ControllerBase
 {
     private readonly IMediator _mediator;
@@ -17,38 +18,18 @@ public class HighScoreController : ControllerBase
         _mediator = mediator;
     }
     
-    [HttpGet("highScores")]
-    [SwaggerResponse(StatusCodes.Status200OK, "Get ordered player list by name")]
+    [HttpGet]
+    [SwaggerResponse(StatusCodes.Status200OK, "All scores, with filters")]
     [SwaggerResponse(StatusCodes.Status400BadRequest, null)]
-    public async Task<IActionResult> Get()
-    {
-        throw new NotImplementedException();
-    }
+    public async Task<IActionResult> Get([FromQuery] string name = null)=>
+        Ok(await _mediator.Send(new GetHighScoresQuery(name)));
 
-    [HttpGet("highScores/{id}")]
-    [SwaggerResponse(StatusCodes.Status200OK, "Get player resource by id")]
+    [HttpPost]
+    [SwaggerResponse(StatusCodes.Status201Created, "Create a score entry")]
     [SwaggerResponse(StatusCodes.Status400BadRequest, null)]
-    [SwaggerResponse(StatusCodes.Status404NotFound, null)]
-    public async Task<IActionResult> Get([FromRoute] string id)
+    public async Task<IActionResult> ProcessGameResults([FromBody] HighScoreModel request)
     {
-        var result = await _mediator.Send(new GetHighScoreQuery(id));
-        if (result == null) return NotFound();
-        return Ok(result);
-    }
-    
-    [HttpGet("highScores/getTopTen")]
-    [SwaggerResponse(StatusCodes.Status200OK, "Get the current top 10 players")]
-    [SwaggerResponse(StatusCodes.Status400BadRequest, null)]
-    public async Task<IActionResult> GetTopTen()
-    {
-        throw new NotImplementedException();
-    }
-
-    [HttpPost("processGameResults")]
-    [SwaggerResponse(StatusCodes.Status201Created, "Called when a game has ended, creates player resource to be displayed on leaderboard")]
-    [SwaggerResponse(StatusCodes.Status400BadRequest, null)]
-    public async Task<IActionResult> ProcessGameResults([FromBody] object request)
-    {
-        throw new NotImplementedException();
+        var result = await _mediator.Send(new CreateHighScoreCommand(null, request));
+        return Created(result.Id, result);
     }
 }
