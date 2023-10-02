@@ -12,7 +12,7 @@ namespace LD54.Managers
         
         private void Start()
         {
-            _coroutine = StartCoroutine(CoroutineTemplate.FireAndDelayLoopRoutine(0.1f, () =>
+            _coroutine = StartCoroutine(CoroutineTemplate.FireAndDelayLoopRoutine(0.15f, () =>
             {
                 var bottomLeftCornerPosition = _bottomLeftCorner.position;
                 var topRightCornerPosition = _topRightCorner.position;

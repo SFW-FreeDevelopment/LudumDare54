@@ -3,13 +3,11 @@ using System.Linq;
 using LD54.Abstractions;
 using LD54.Behaviors;
 using LD54.Enums;
-using LD54.Requests;
-using UniMediator;
 using UnityEngine;
 
 namespace LD54.Managers
 {
-    public class AudioManager : GameSingleton<AudioManager>, IMulticastMessageHandler<PlayAudioCommand>
+    public class AudioManager : GameSingleton<AudioManager>
     {
         [SerializeField] private GameObject _audioObjectPrefab;
 
@@ -56,7 +54,5 @@ namespace LD54.Managers
                 audioSource.Play();
             }
         }
-
-        public void Handle(PlayAudioCommand request) => Play(request.SoundName.ToString(), request.Loop);
     }
 }
