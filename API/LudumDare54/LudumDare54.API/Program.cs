@@ -1,4 +1,4 @@
-using LudumDare54.API.Mongo;
+using LudumDare54.API.Database;
 using MongoDB.Driver;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -9,9 +9,11 @@ var configuration = new ConfigurationBuilder()
     .Build();
 
 // Add services to the container.
-builder.Services.AddScoped<PlayerRepository>();
+builder.Services.AddScoped<HighScoreRepository>();
 builder.Services.AddScoped<IMongoClient, MongoClient>(_ =>
     new MongoClient(MongoClientSettings.FromConnectionString(configuration.GetConnectionString("MongoDatabaseConnectionString"))));
+
+builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle

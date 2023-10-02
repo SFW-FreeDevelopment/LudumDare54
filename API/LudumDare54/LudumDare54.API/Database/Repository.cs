@@ -2,7 +2,7 @@
 using MongoDB.Driver;
 using MongoDB.Driver.Linq;
 
-namespace LudumDare54.API.Mongo;
+namespace LudumDare54.API.Database;
 
 public class Repository<T> where T : Resource
 {
@@ -25,7 +25,7 @@ public class Repository<T> where T : Resource
         catch (Exception e)
         {
             Console.WriteLine(e);
-            throw;
+            return new List<T>();
         }
     }
 
@@ -40,7 +40,7 @@ public class Repository<T> where T : Resource
         catch (Exception e)
         {
             Console.WriteLine(e);
-            throw;
+            return null;
         }
     }
 
@@ -58,7 +58,7 @@ public class Repository<T> where T : Resource
         catch (Exception e)
         {
             Console.WriteLine(e);
-            throw;
+            return null;
         }
     }
 
@@ -84,7 +84,7 @@ public class Repository<T> where T : Resource
 
     private IMongoCollection<T> GetCollection()
     {
-        var database = _mongoClient.GetDatabase("main");
+        var database = _mongoClient.GetDatabase("ld54");
         var collection = database.GetCollection<T>(CollectionName);
         return collection;
     }
