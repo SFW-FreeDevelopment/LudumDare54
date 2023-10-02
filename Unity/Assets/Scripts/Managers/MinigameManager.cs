@@ -34,7 +34,7 @@ namespace LD54.Managers
             if (!GameState.GameOver) return;
             if (Input.GetKeyDown(KeyCode.Return) || Input.GetKeyDown(KeyCode.Space))
             {
-                SceneManager.LoadScene("Minigame");
+                SceneManager.LoadScene("Startup");
             }
         }
 
