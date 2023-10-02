@@ -8,7 +8,7 @@ namespace LD54.Managers
 {
     public sealed class MinigameManager : SceneSingleton<MinigameManager>
     {
-        private const int MAX_NUMBER_OF_FILES = 100;
+        private const int MAX_NUMBER_OF_FILES = 255;
         
         public GameState GameState { get; private set; } = new();
 
@@ -56,10 +56,7 @@ namespace LD54.Managers
 
         private void ResetMinigame()
         {
-            GameState = new()
-            {
-                GameOver = false
-            };
+            GameState = new();
         }
     }
 }
